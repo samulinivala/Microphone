@@ -9,12 +9,16 @@ import SwiftUI
 
 @main
 struct MicrophoneApp: App {
-    let persistenceController = PersistenceController.shared
-
+    init() {
+        // Make sure the usage description is set
+        if Bundle.main.object(forInfoDictionaryKey: "NSMicrophoneUsageDescription") == nil {
+            print("Warning: NSMicrophoneUsageDescription is not set in Info.plist")
+        }
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
